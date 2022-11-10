@@ -1,0 +1,37 @@
+main
+integer declared a integer end 
+
+integer declared b integer end 
+
+integer declared c integer end 
+
+integer declared d integer end 
+
+a = 2 
+b = 1 
+c = 5 
+d = 4 
+print a + b end tag of print
+
+print a - b end tag of print
+
+print a * b end tag of print
+
+print a / b end tag of print
+
+print a ^ b end tag of print
+
+condition a less b end condition 
+if a + b 
+if end
+else a - b 
+else end
+print a + b end tag of print
+
+for count_cond. start 5 count_cond. end
+print a = b + c end tag of print
+
+end for
+root number d end root
+
+end main
