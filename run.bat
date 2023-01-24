@@ -1,3 +1,4 @@
+bison -d 1807111.y
 flex 1807111.l
-gcc lex.yy.c -o amit.exe
-amit.exe
+gcc 1807111.tab.c lex.yy.c -o 111
+111

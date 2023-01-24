@@ -9,19 +9,18 @@ multiline comment </comment>
 
 <main>
 
-	<int> a </int>;
-	<int>b</int>;
-	<int>c</int>;
-	<int>d</int>;
+	<int> a,b,c,d </int>;
 	a <equal> 2;
 	b <equal> 1;
 	c <equal> 5;
 	d <equal> 4;
 	<print> a <add> b </print>;
 	<print> a <sub> b </print>;
-	<print> a <multi> b </print>;
+	<print> a <multi>b</print>;
 	<print> a <div> b </print>;
 	<print> a <pow> b </print>;
+	<print> a <pow> b </print>;
+
 
 	<condition> a <less> b </condition>
 		<true>
@@ -31,13 +30,16 @@ multiline comment </comment>
 			a <sub> b;
 		</false>
 
-	<print> a <add> b </print>;
+	<print> a<add>b </print>;
 
 	
-	<for>
+	<for> 
 		<count>5</count>
-			<print> a <equal> b <add> c </print>;
+			a <equal> b<add>c;
 	</for>
 
-	<root> d </root>
+	<root> d </root>;
+	<sin> 30 </sin>;
+	<fibonacci> 10 </fibonacci>
+	
 </main>
