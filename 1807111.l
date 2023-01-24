@@ -3,9 +3,10 @@
 	#include<string.h>
 	#include<stdlib.h>
 	#include<math.h>
+	#include "1807111.tab.h"
 %}
 
-ALPHA [a-zA-Z]+
+ALPHA [a-zA-Z]
 DIGIT [0-9]
 IMPORT			"<import>"[ ]*[a-zA-Z.<>]+[ ]*"<\/import>"
 SCOMMENT		"<comment>"[a-zA-Z0-9,.\\?!@#$%^&*()-{}+_=<>\|'";\t ]*"\n"
@@ -13,55 +14,65 @@ MCOMMENT		"<comment>"[a-zA-Z0-9,.\\?!@#$%^&*()-{}+_=<>\|'";\t\n ]*"</comment>"
 
 %%
 
+{DIGIT}+	{ yylval = atoi(yytext); return NUM; }
+{ALPHA}	    { yylval = *yytext - 'a'; return VAR; }
 
 
-;         		{printf("\n");}
-"<for>" 		{printf("for ");}
-"</for>"		{printf("end for\n");}
-"<count>"	    {printf("count_cond. start ");}
-"</count>"		{printf("count_cond. end\n");}
+"<for>" 		{ return FOR;}
+"</for>"		{ return ENDFOR;}
+"<count>"	    { return COUNT;}
+"</count>"		{ return ENDCOUNT;}
 
-"<print> "		{printf("print ");}
-" </print>"		{printf("end tag of print\n");}
-"<root>"		{printf("root number ");}
-"</root>"		{printf("end root\n");}
+"<print>"		{return PRINT;}
+"</print>"		{return ENDPRINT;}
+"<root>"		{ return ROOT;}
+"</root>"		{ return ENDROOT;}
 
 
 {SCOMMENT}		{}
 {MCOMMENT}		{}
 {IMPORT}  		{}
+[@<>,():;]     {yylval = yytext[0];	return *yytext;	}
 
 
+"<condition>"	{ return CONDITION;}
+"</condition>"	{ return ENDCONDITION;}
+"<true>"			{ return IF;}
+"</true>"			{ return ENDIF;}
+"<false>"		{ return ELSE;}
+"</false>"		{ return ENDELSE;}
 
-"<condition> "	{printf("condition ");}
-" </condition>"	{printf("end condition \n");}
-"<true>"		{printf("if ");}
-"</true>"		{printf("if end\n");}
-"<false>"		{printf("else ");}
-"</false>"		{printf("else end\n");}
-" <add> "			{printf("+ ");}
-" <sub> "			{printf("- ");}
-" <multi> "		{printf("* ");}
-" <div> "			{printf("/ ");}
-" <pow> "			{printf("^ ");}
-" <less> "		{printf("less ");}
-"<greater>"		{printf("greater");}
-" <equal> "		{printf("= ");}
-"<int>"  		{printf("integer declared ");}
-"</int>"  		{printf("integer end \n");}
-"<char>"        {printf("char ");}
-"</char>"        {printf("end char ");}
-"<float>" 	    {printf("float start");}
-"</float>" 	    {printf("end float");}
-"<double>"		{printf("double");}
-"</double>"		{printf("end double");}
-"SCOMMENT"		{printf("\nSingle line comment found: "); ECHO;printf("\n");}
-"MCOMMENT"		{printf("\nMulti line comment found: "); ECHO;printf("\n");}
-"IMPORT"		{printf("\nSingle line comment found: "); ECHO;printf("\n");}
-[a-zA-Z0-9]+			{printf("");ECHO;printf(" ");}
+"<sin>"			{ return SIN;}
+"</sin>"		{ return ENDSIN;}
+"<cos>"			{ return COS;}
+"</cos>"		{ return ENDCOS;}
+"<tan>"			{ return TAN;}
+"</tan>"		{ return ENDTAN;}
+"<fibonacci>"	{ return FIB;}
+"</fibonacci>"	{ return ENDFIB;}
 
-"<main>"	    { printf("main\n"); }
-"</main>"		{printf("\nend main");}
+
+"<add>"			{return ADD;}
+"<sub>"			{return SUB;}
+"<multi>"		{return MULT;}
+"<div>"			{return DIV;}
+"<mod>"			{return MOD;}
+"<pow>"			{return POW;}
+"<less>"		{return LESS;}
+"<greater>"		{return GREATER;}
+"<equal>"		{return EQUAL;}
+
+"<int>"  		{return INT;}
+"</int>"  		{return ENDINT;}
+"<char>"        {return CHAR;}
+"</char>"        {return ENDCHAR;}
+"<float>" 	    {return FLOAT;}
+"</float>" 	    {return ENDFLOAT;}
+"<double>"		{return DOUBLE;}
+"</double>"		{return ENDDOUBLE;}
+
+"<main>"	    { return MAIN; }
+"</main>"		{return ENDMAIN;}
 [ ]*	    	{}
 [\n]*			{}
 [\t]*			{}
@@ -78,7 +89,7 @@ int main()
 {
 	freopen("input.txt","r",stdin);
 	freopen("output.txt","w",stdout);
-	yylex();
+	yyparse();
     
 	return 0;
 }
